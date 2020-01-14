@@ -1,0 +1,31 @@
+{
+  "name": "actions-retrieve-ecr-token",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Retrieve an ECR token from the ECR token vendor",
+  "main": "target/main.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inmar/actions-retrieve-ecr-token"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "author": "Blake Hyde <blake.hyde@inmar.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.1.0",
+    "@actions/exec": "^1.0.1",
+    "@actions/io": "^1.0.1",
+    "@types/node": "^12.0.4",
+    "typed-rest-client": "^1.7.1",
+    "typescript": "^3.5.1"
+  },
+  "devDependencies": {}
+}

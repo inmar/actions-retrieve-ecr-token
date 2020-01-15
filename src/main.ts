@@ -22,7 +22,7 @@ interface Credentials {
 type VendorResponse = VendorSuccess | string;
 
 function isSuccess(value: VendorResponse): value is VendorSuccess {
-    return "Credentials" in (value as VendorSuccess)
+    return !(typeof value === "string")
 }
 
 function isDefined<T>(value: T | undefined | null): value is T {

@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const http = __importStar(require("typed-rest-client/HttpClient"));
 function isSuccess(value) {
-    return "Credentials" in value;
+    return !(typeof value === "string");
 }
 function isDefined(value) {
     return value !== undefined && value !== null;

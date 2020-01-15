@@ -23,11 +23,16 @@ function parseBoolean(s) {
 }
 function parseInputs() {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    console.log("Configuring action...");
     const url = (_b = (_a = core.getInput("ecr_token_vendor_url")) === null || _a === void 0 ? void 0 : _a.trim(), (_b !== null && _b !== void 0 ? _b : ""));
+    console.log(`ecr_token_vendor_url: ${url}`);
     const githubRepo = (_d = (_c = core.getInput("github_repo")) === null || _c === void 0 ? void 0 : _c.trim(), (_d !== null && _d !== void 0 ? _d : ""));
     const githubToken = (_f = (_e = core.getInput("github_token")) === null || _e === void 0 ? void 0 : _e.trim(), (_f !== null && _f !== void 0 ? _f : ""));
+    console.log(`github_repo: ${githubRepo}`);
     const subrepos = (_h = (_g = core.getInput("subrepos")) === null || _g === void 0 ? void 0 : _g.trim().split(","), (_h !== null && _h !== void 0 ? _h : []));
+    console.log(`subrepos: ${subrepos}`);
     const includeRoot = parseBoolean((_k = (_j = core.getInput("include_root")) === null || _j === void 0 ? void 0 : _j.trim(), (_k !== null && _k !== void 0 ? _k : "")));
+    console.log(`includeRoot: ${includeRoot}`);
     return {
         EcrTokenVendorUrl: url,
         GithubRepo: githubRepo,

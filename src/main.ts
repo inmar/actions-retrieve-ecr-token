@@ -46,11 +46,19 @@ function parseBoolean(s: string): boolean {
 }
 
 function parseInputs(): Params {
+    console.log("Configuring action...")
     const url = core.getInput("ecr_token_vendor_url")?.trim() ?? "";
+    console.log(`ecr_token_vendor_url: ${url}`);
+
     const githubRepo = core.getInput("github_repo")?.trim() ?? "";
     const githubToken = core.getInput("github_token")?.trim() ?? "";
+    console.log(`github_repo: ${githubRepo}`)
+
     const subrepos = core.getInput("subrepos")?.trim().split(",") ?? [];
+    console.log(`subrepos: ${subrepos}`)
+
     const includeRoot = parseBoolean(core.getInput("include_root")?.trim() ?? "");
+    console.log(`includeRoot: ${includeRoot}`)
 
     return {
         EcrTokenVendorUrl: url,

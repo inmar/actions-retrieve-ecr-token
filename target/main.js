@@ -66,16 +66,21 @@ function setEnv(key, value) {
     console.log(`::set-env name=${key}::${value}`);
 }
 async function run() {
-    const params = parseInputs();
-    const result = await post(params);
-    if (isSuccess(result)) {
-        setEnv("AWS_ACCESS_KEY_ID", result.Credentials.AccessKeyId);
-        setEnv("AWS_SECRET_ACCESS_KEY", result.Credentials.SecretAccessKey);
-        setEnv("AWS_SESSION_TOKEN", result.Credentials.SessionToken);
-        setEnv("ECR_REGISTRY_URI", result.RegistryUri);
+    try {
+        const params = parseInputs();
+        const result = await post(params);
+        if (isSuccess(result)) {
+            setEnv("AWS_ACCESS_KEY_ID", result.Credentials.AccessKeyId);
+            setEnv("AWS_SECRET_ACCESS_KEY", result.Credentials.SecretAccessKey);
+            setEnv("AWS_SESSION_TOKEN", result.Credentials.SessionToken);
+            setEnv("ECR_REGISTRY_URI", result.RegistryUri);
+        }
+        else {
+            core.setFailed(`Failed: ${result}`);
+        }
     }
-    else {
-        core.setFailed(`Failed: ${result}`);
+    catch (e) {
+        core.setFailed(`Failed with exception: ${e}`);
     }
 }
 run();

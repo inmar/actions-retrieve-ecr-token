@@ -1,0 +1,19 @@
+name: 'ECR Token Retrieval'
+description: 'Exchange a Github Token for a scoped STS session token'
+author: 'Blake Hyde <blake.hyde@inmar.com>'
+inputs:
+  ecr_token_vendor_url:
+    description: 'URL of an instance of the ECR token vendor service'
+    required: true
+  github_repo:
+    description: 'The name of the Github repo, in org/repo format'
+    required: true
+  subrepos:
+    description: 'A comma-delimited list of subrepos to create/use in ECR'
+    required: false
+  include_root:
+    description: 'Whether to create a repository with no subrepo name in ECR'
+    required: false
+runs:
+  using: 'node12'
+  main: 'target/main.js'

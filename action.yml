@@ -1,7 +1,10 @@
 name: 'ECR Token Retrieval'
-description: 'Exchange a Github Token for a scoped STS session token'
+description: 'Exchange a Github Token for a scoped STS session token. Sets ENV variables AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, and ECR_HOSTNAME (registry uri)'
 author: 'Blake Hyde <blake.hyde@inmar.com>'
 inputs:
+  github_token:
+    description: 'Github action token'
+    required: true
   ecr_token_vendor_url:
     description: 'URL of an instance of the ECR token vendor service'
     required: true

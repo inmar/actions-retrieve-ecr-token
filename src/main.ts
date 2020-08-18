@@ -1,15 +1,12 @@
-import * as path from 'path';
-import * as fs from 'fs';
-
 import * as core from '@actions/core';
-import * as exec from '@actions/exec';
-import * as io from '@actions/io';
 
 import * as http from 'typed-rest-client/HttpClient';
 
 interface VendorSuccess {
     Credentials: Credentials;
     RegistryUri: string;
+    AwsAccountId?: string;
+    AwsRegion?: string;
 }
 
 interface Credentials {
@@ -105,19 +102,27 @@ function setEnv(key: string, value: string) {
 
 async function run() {
     try {
-      const params = parseInputs();
-      const result = await post(params);
+        const params = parseInputs();
+        const result = await post(params);
 
-      if (isSuccess(result)) {
-          setEnv("AWS_ACCESS_KEY_ID", result.Credentials.AccessKeyId);
-          setEnv("AWS_SECRET_ACCESS_KEY", result.Credentials.SecretAccessKey);
-          setEnv("AWS_SESSION_TOKEN", result.Credentials.SessionToken);
-          setEnv("ECR_HOSTNAME", result.RegistryUri);
-      } else {
-          core.setFailed(`Failed: ${result}`)
-      }
-    } catch(e) {
-      core.setFailed(`Failed with exception: ${e}`)
+        if (isSuccess(result)) {
+            setEnv("AWS_ACCESS_KEY_ID", result.Credentials.AccessKeyId);
+            setEnv("AWS_SECRET_ACCESS_KEY", result.Credentials.SecretAccessKey);
+            setEnv("AWS_SESSION_TOKEN", result.Credentials.SessionToken);
+            setEnv("ECR_HOSTNAME", result.RegistryUri);
+
+            if (result.AwsAccountId !== undefined) {
+                setEnv("ECR_ACCOUNT_ID", result.AwsAccountId);
+            }
+
+            if (result.AwsRegion !== undefined) {
+                setEnv("ECR_REGION", result.AwsRegion);
+            }
+        } else {
+            core.setFailed(`Failed: ${result}`)
+        }
+    } catch (e) {
+        core.setFailed(`Failed with exception: ${e}`)
     }
 }
 

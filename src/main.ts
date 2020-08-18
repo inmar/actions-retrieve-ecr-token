@@ -5,6 +5,8 @@ import * as http from 'typed-rest-client/HttpClient';
 interface VendorSuccess {
     Credentials: Credentials;
     RegistryUri: string;
+    AwsAccountId?: string;
+    AwsRegion?: string;
 }
 
 interface Credentials {
@@ -114,6 +116,14 @@ async function run() {
           setEnv("AWS_SECRET_ACCESS_KEY", result.Credentials.SecretAccessKey);
           setEnv("AWS_SESSION_TOKEN", result.Credentials.SessionToken);
           setEnv("ECR_HOSTNAME", result.RegistryUri);
+
+          if (result.AwsAccountId !== undefined) {
+              setEnv("ECR_ACCOUNT_ID", result.AwsAccountId);
+          }
+
+          if (result.AwsRegion !== undefined) {
+              setEnv("ECR_REGION", result.AwsRegion);
+          }
       } else {
           core.setFailed(`Failed: ${result}`)
       }

@@ -31,8 +31,12 @@ function parseInputs() {
     console.log(`github_repo: ${githubRepo}`);
     const subrepos = (_h = (_g = core.getInput("subrepos")) === null || _g === void 0 ? void 0 : _g.trim().split(","), (_h !== null && _h !== void 0 ? _h : []));
     console.log(`subrepos: ${subrepos}`);
-    const includeRoot = parseBoolean((_k = (_j = core.getInput("include_root")) === null || _j === void 0 ? void 0 : _j.trim(), (_k !== null && _k !== void 0 ? _k : "")));
+    let includeRoot = parseBoolean((_k = (_j = core.getInput("include_root")) === null || _j === void 0 ? void 0 : _j.trim(), (_k !== null && _k !== void 0 ? _k : "")));
     console.log(`includeRoot: ${includeRoot}`);
+    if (subrepos.length === 0 && !includeRoot) {
+        console.log("Overriding includeRoot to true because no subrepos were included");
+        includeRoot = true;
+    }
     return {
         EcrTokenVendorUrl: url,
         GithubRepo: githubRepo,

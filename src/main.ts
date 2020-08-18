@@ -1,9 +1,4 @@
-import * as path from 'path';
-import * as fs from 'fs';
-
 import * as core from '@actions/core';
-import * as exec from '@actions/exec';
-import * as io from '@actions/io';
 
 import * as http from 'typed-rest-client/HttpClient';
 
@@ -57,8 +52,13 @@ function parseInputs(): Params {
     const subrepos = core.getInput("subrepos")?.trim().split(",") ?? [];
     console.log(`subrepos: ${subrepos}`)
 
-    const includeRoot = parseBoolean(core.getInput("include_root")?.trim() ?? "");
+    let includeRoot = parseBoolean(core.getInput("include_root")?.trim() ?? "");
     console.log(`includeRoot: ${includeRoot}`)
+
+    if (subrepos.length === 0 && !includeRoot) {
+        console.log("Overriding includeRoot to true because no subrepos were included")
+        includeRoot = true
+    }
 
     return {
         EcrTokenVendorUrl: url,

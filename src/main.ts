@@ -108,27 +108,27 @@ function setEnv(key: string, value: string) {
 
 async function run() {
     try {
-      const params = parseInputs();
-      const result = await post(params);
+        const params = parseInputs();
+        const result = await post(params);
 
-      if (isSuccess(result)) {
-          setEnv("AWS_ACCESS_KEY_ID", result.Credentials.AccessKeyId);
-          setEnv("AWS_SECRET_ACCESS_KEY", result.Credentials.SecretAccessKey);
-          setEnv("AWS_SESSION_TOKEN", result.Credentials.SessionToken);
-          setEnv("ECR_HOSTNAME", result.RegistryUri);
+        if (isSuccess(result)) {
+            setEnv("AWS_ACCESS_KEY_ID", result.Credentials.AccessKeyId);
+            setEnv("AWS_SECRET_ACCESS_KEY", result.Credentials.SecretAccessKey);
+            setEnv("AWS_SESSION_TOKEN", result.Credentials.SessionToken);
+            setEnv("ECR_HOSTNAME", result.RegistryUri);
 
-          if (result.AwsAccountId !== undefined) {
-              setEnv("ECR_ACCOUNT_ID", result.AwsAccountId);
-          }
+            if (result.AwsAccountId !== undefined) {
+                setEnv("ECR_ACCOUNT_ID", result.AwsAccountId);
+            }
 
-          if (result.AwsRegion !== undefined) {
-              setEnv("ECR_REGION", result.AwsRegion);
-          }
-      } else {
-          core.setFailed(`Failed: ${result}`)
-      }
-    } catch(e) {
-      core.setFailed(`Failed with exception: ${e}`)
+            if (result.AwsRegion !== undefined) {
+                setEnv("ECR_REGION", result.AwsRegion);
+            }
+        } else {
+            core.setFailed(`Failed: ${result}`)
+        }
+    } catch (e) {
+        core.setFailed(`Failed with exception: ${e}`)
     }
 }
 

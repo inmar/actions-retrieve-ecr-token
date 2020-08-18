@@ -49,7 +49,8 @@ function parseInputs(): Params {
     const githubToken = core.getInput("github_token")?.trim() ?? "";
     console.log(`github_repo: ${githubRepo}`)
 
-    const subrepos = core.getInput("subrepos")?.trim().split(",") ?? [];
+    let subrepos = core.getInput("subrepos")?.trim().split(",") ?? [];
+    subrepos = subrepos.filter((s) => s.length > 0);
     console.log(`subrepos: ${subrepos}`)
 
     let includeRoot = parseBoolean(core.getInput("include_root")?.trim() ?? "");
@@ -72,7 +73,7 @@ function parseInputs(): Params {
 async function post(params: Params): Promise<VendorResponse> {
     const url = `https://${params.EcrTokenVendorUrl}/token`;
     const body = JSON.stringify({
-        Subrepos: params.Subrepos,
+        SubRepos: params.Subrepos,
         Repository: params.GithubRepo,
         GithubToken: params.GithubToken,
         IncludeRoot: params.IncludeRoot,

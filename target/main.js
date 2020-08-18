@@ -48,7 +48,7 @@ function parseInputs() {
 async function post(params) {
     const url = `https://${params.EcrTokenVendorUrl}/token`;
     const body = JSON.stringify({
-        Subrepos: params.Subrepos,
+        SubRepos: params.Subrepos,
         Repository: params.GithubRepo,
         GithubToken: params.GithubToken,
         IncludeRoot: params.IncludeRoot,

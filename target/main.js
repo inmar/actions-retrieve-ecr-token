@@ -29,7 +29,8 @@ function parseInputs() {
     const githubRepo = (_d = (_c = core.getInput("github_repo")) === null || _c === void 0 ? void 0 : _c.trim(), (_d !== null && _d !== void 0 ? _d : ""));
     const githubToken = (_f = (_e = core.getInput("github_token")) === null || _e === void 0 ? void 0 : _e.trim(), (_f !== null && _f !== void 0 ? _f : ""));
     console.log(`github_repo: ${githubRepo}`);
-    const subrepos = (_h = (_g = core.getInput("subrepos")) === null || _g === void 0 ? void 0 : _g.trim().split(","), (_h !== null && _h !== void 0 ? _h : []));
+    let subrepos = (_h = (_g = core.getInput("subrepos")) === null || _g === void 0 ? void 0 : _g.trim().split(","), (_h !== null && _h !== void 0 ? _h : []));
+    subrepos = subrepos.filter((s) => s.length > 0);
     console.log(`subrepos: ${subrepos}`);
     const includeRoot = parseBoolean((_k = (_j = core.getInput("include_root")) === null || _j === void 0 ? void 0 : _j.trim(), (_k !== null && _k !== void 0 ? _k : "")));
     console.log(`includeRoot: ${includeRoot}`);

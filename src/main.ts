@@ -51,7 +51,8 @@ function parseInputs(): Params {
     const githubToken = core.getInput("github_token")?.trim() ?? "";
     console.log(`github_repo: ${githubRepo}`)
 
-    const subrepos = core.getInput("subrepos")?.trim().split(",") ?? [];
+    let subrepos = core.getInput("subrepos")?.trim().split(",") ?? [];
+    subrepos = subrepos.filter((s) => s.length > 0);
     console.log(`subrepos: ${subrepos}`)
 
     const includeRoot = parseBoolean(core.getInput("include_root")?.trim() ?? "");

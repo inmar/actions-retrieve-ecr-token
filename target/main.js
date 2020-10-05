@@ -73,7 +73,7 @@ async function post(params) {
     return `${msg}: ${resultBody}`;
 }
 function setEnv(key, value) {
-    console.log(`::set-env name=${key}::${value}`);
+    core.exportVariable(key, value);
 }
 async function run() {
     try {

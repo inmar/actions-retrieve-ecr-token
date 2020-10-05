@@ -103,7 +103,7 @@ async function post(params: Params): Promise<VendorResponse> {
 }
 
 function setEnv(key: string, value: string) {
-    console.log(`::set-env name=${key}::${value}`);
+    core.exportVariable(key, value);
 }
 
 async function run() {
